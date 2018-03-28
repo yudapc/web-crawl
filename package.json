@@ -1,0 +1,28 @@
+{
+  "name": "web-crawl",
+  "version": "1.0.0",
+  "description": "Script untuk crawl website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yuda.pc@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "casperjs": "^1.1.4",
+    "mysql": "^2.15.0",
+    "phantomjs": "^2.1.7"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yudapc/web-crawl.git"
+  },
+  "keywords": [
+    "web-crawl"
+  ],
+  "bugs": {
+    "url": "https://github.com/yudapc/web-crawl/issues"
+  },
+  "homepage": "https://github.com/yudapc/web-crawl#readme"
+}

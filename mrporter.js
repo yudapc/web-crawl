@@ -3,8 +3,8 @@ var casper = require('casper').create({
   logLevel: 'debug',
 });
 
-var id = 'assets/adidas-us';
-var url = 'https://www.adidas.com/us';
+var id = 'assets/mrporter';
+var url = 'https://www.mrporter.com';
 
 casper.start();
 
@@ -22,7 +22,7 @@ casper.thenOpen(url, function() {
   });
 });
 casper.then(function() {
-  var searchElement = '.inner___3GESw .searchinput___2BN-T';
+  var searchElement = 'input#search';
   this.sendKeys(searchElement, 'Running', {keepFocus: true});
   this.sendKeys(searchElement, casper.page.event.key.Enter , {keepFocus: true});
   this.capture(id + '/02. form-search.png', {
@@ -33,7 +33,7 @@ casper.then(function() {
   });
 });
 casper.then(function() {
-  this.waitForSelector('#product-grid', function() {
+  this.waitForSelector('#content', function() {
     this.capture(id + '/03. search-result.png', {
       top: 0,
       left: 0,
@@ -44,13 +44,16 @@ casper.then(function() {
     this.echo('error');
   });
 });
-casper.thenClick('.product-grid .innercard a', function() {
-  this.echo('click first product');
-  this.capture(id + '/04. product.png', {
-    top: 0,
-    left: 0,
-    width: 1600,
-    height: 3200,
+casper.thenClick('ul.pl-products li.pl-products-item a', function() {
+  this.waitForSelector('#product-page', function() {
+    this.capture(id + '/04. product.png', {
+      top: 0,
+      left: 0,
+      width: 1600,
+      height: 3200,
+    });
+  },function() {
+    this.echo('error');
   });
 });
 casper.run();

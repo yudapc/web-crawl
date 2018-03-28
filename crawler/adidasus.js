@@ -3,7 +3,7 @@ var casper = require('casper').create({
   logLevel: 'debug',
 });
 
-var id = 'assets/adidas-us';
+var id = './assets/adidas-us';
 var url = 'https://www.adidas.com/us';
 
 casper.start();
@@ -22,7 +22,7 @@ casper.thenOpen(url, function() {
   });
 });
 casper.then(function() {
-  var searchElement = '.inner___3GESw .searchinput___2BN-T';
+  var searchElement = '.inner___3GESw input[name=q]';
   this.sendKeys(searchElement, 'Running', {keepFocus: true});
   this.sendKeys(searchElement, casper.page.event.key.Enter , {keepFocus: true});
   this.capture(id + '/02. form-search.png', {

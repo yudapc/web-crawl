@@ -3,7 +3,7 @@ var casper = require('casper').create({
   logLevel: 'debug',
 });
 
-var id = 'assets/mrporter';
+var id = './assets/mrporter';
 var url = 'https://www.mrporter.com';
 
 casper.start();

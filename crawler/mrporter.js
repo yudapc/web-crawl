@@ -3,9 +3,9 @@ var casper = require('casper').create({
   logLevel: 'debug',
 });
 
-var id = './assets/mrporter';
 var url = 'https://www.mrporter.com';
 var keyword = casper.cli.args[0];
+var assetPath = './assets/mrporter/' + keyword;
 
 casper.start();
 casper.viewport(1600, 1200);
@@ -14,7 +14,7 @@ casper.options.waitTimeout = 20000;
 
 casper.thenOpen(url, function() {
   this.echo('Open Page 1 : ' + this.getTitle());
-  this.capture(id + '/01. page-1.png', {
+  this.capture(assetPath + '/01. page-1.png', {
     top: 0,
     left: 0,
     width: 1600,
@@ -25,7 +25,7 @@ casper.then(function() {
   var searchElement = 'input#search';
   this.sendKeys(searchElement, keyword, {keepFocus: true});
   this.sendKeys(searchElement, casper.page.event.key.Enter , {keepFocus: true});
-  this.capture(id + '/02. form-search.png', {
+  this.capture(assetPath + '/02. form-search.png', {
     top: 0,
     left: 0,
     width: 1600,
@@ -34,7 +34,7 @@ casper.then(function() {
 });
 casper.then(function() {
   this.waitForSelector('#content', function() {
-    this.capture(id + '/03. search-result.png', {
+    this.capture(assetPath + '/03. search-result.png', {
       top: 0,
       left: 0,
       width: 1600,
@@ -46,7 +46,7 @@ casper.then(function() {
 });
 casper.thenClick('ul.pl-products li.pl-products-item a', function() {
   this.waitForSelector('#product-page', function() {
-    this.capture(id + '/04. product.png', {
+    this.capture(assetPath + '/04. product.png', {
       top: 0,
       left: 0,
       width: 1600,

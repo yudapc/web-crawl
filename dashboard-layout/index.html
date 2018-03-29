@@ -18,20 +18,38 @@
       <li>
         <a href="/assets">Results</a>
       </li>
+      <li>
+        <a id="clearall" href="#">Clear All Results</a>
+      </li>
     </ul>
   </div>
 </nav>
     <div class="jumbotron"  style="padding:40px;">
       <h1>Hello, world!</h1>
       <p>This is a simple bot ecommerce</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Run Bot</a></p>
+      <p><input type="text" name="q" placeholder="Keywords..."/></p>
+      <p><a class="btn btn-primary btn-lg btn-runbot" href="#" role="button">Run Bot</a></p>
     </div>
   </div>
   <script>
-    $('a.btn').click(function() {
-      $.get("/runbot", function() {
-        alert("Bot is running");
-      });
+    $('a.btn-runbot').click(function() {
+      var keyword = $('input[name=q]').val();
+      if (keyword.length > 0) {
+        $.get("/runbot?q=" + keyword, function() {
+          alert("Bot is running");
+        });
+      } else {
+        alert('please insert keyword');
+      }
+    });
+    $('a#clearall').click(function() {
+      var clearAll = confirm("Are you sure?");
+      if (clearAll) {
+        $.get("/clearall", function() {
+          alert("clear all!");
+        });
+      }
+      return false;
     });
   </script>
 </body>

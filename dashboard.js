@@ -6,7 +6,7 @@ var serveIndex = require('serve-index');
 var cmd        = require('child_process');
 
 app.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html')); //__dirname : It will resolve to your project folder.
+  res.sendFile(path.join(__dirname+'/dashboard-layout/index.html')); //__dirname : It will resolve to your project folder.
 });
 
 app.use(express.static(__dirname + "/assets"))
@@ -18,7 +18,11 @@ app.get('/assets/:folder/:id', function(req, res) {
 });
 
 app.get('/runbot', function(req, res) {
-  cmd.exec('./run_mrporter.sh', function(err, stdout, stderr) {
+  var keyword = req.param('q');
+  console.log('keyword: ', keyword);
+  var commandLine = `./run_mrporter.sh ${keyword}`;
+  console.log('commandLine: ', commandLine);
+  cmd.exec(commandLine, function(err, stdout, stderr) {
     if (err) {
       console.log('err: ', err);
       return;
@@ -27,6 +31,19 @@ app.get('/runbot', function(req, res) {
     console.log(`stderr: ${stderr}`);
   });
   res.json({ status: 'running' });
+});
+
+app.get('/clearall', function(req, res) {
+  var commandLine = './run_clear_all.sh';
+  cmd.exec(commandLine, function(err, stdout, stderr) {
+    if (err) {
+      console.log('err: ', err);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+  res.json({ status: 'clear all...' });
 });
 
 app.listen(3000);

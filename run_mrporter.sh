@@ -1,2 +1,3 @@
 #/bin/bash
-casperjs crawler/mrporter.js
+echo $1
+casperjs crawler/mrporter.js $1

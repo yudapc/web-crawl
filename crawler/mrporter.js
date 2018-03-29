@@ -5,9 +5,9 @@ var casper = require('casper').create({
 
 var id = './assets/mrporter';
 var url = 'https://www.mrporter.com';
+var keyword = casper.cli.args[0];
 
 casper.start();
-
 casper.viewport(1600, 1200);
 casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X)');
 casper.options.waitTimeout = 20000;
@@ -23,7 +23,7 @@ casper.thenOpen(url, function() {
 });
 casper.then(function() {
   var searchElement = 'input#search';
-  this.sendKeys(searchElement, 'Running', {keepFocus: true});
+  this.sendKeys(searchElement, keyword, {keepFocus: true});
   this.sendKeys(searchElement, casper.page.event.key.Enter , {keepFocus: true});
   this.capture(id + '/02. form-search.png', {
     top: 0,

@@ -5,18 +5,9 @@ var fs         = require("fs");
 var serveIndex = require('serve-index');
 var cmd        = require('child_process');
 
-
 app.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html')); //__dirname : It will resolve to your project folder.
 });
-
-// app.get('/about',function(req,res){
-//   res.sendFile(path.join(__dirname+'/about.html'));
-// });
-//
-// app.get('/sitemap',function(req,res){
-//   res.sendFile(path.join(__dirname+'/sitemap.html'));
-// });
 
 app.use(express.static(__dirname + "/assets"))
 app.use('/assets', serveIndex(__dirname + '/assets'));
@@ -27,7 +18,14 @@ app.get('/assets/:folder/:id', function(req, res) {
 });
 
 app.get('/runbot', function(req, res) {
-  cmd.exec('casperjs /crawler/mrporter.js');
+  cmd.exec('./run_mrporter.sh', function(err, stdout, stderr) {
+    if (err) {
+      console.log('err: ', err);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
   res.json({ status: 'running' });
 });
 

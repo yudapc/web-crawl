@@ -12,9 +12,9 @@ app.get('/',function(req,res){
 app.use(express.static(__dirname + "/assets"))
 app.use('/assets', serveIndex(__dirname + '/assets'));
 
-app.get('/assets/:folder/:id', function(req, res) {
-  console.log('arapsm: ', req.params);
-  res.sendFile(__dirname + '/assets/' +req.params['folder'] + '/'  + req.params['id']);
+app.get('/assets/:folder/:keyword/:id', function(req, res) {
+  console.log('req params', req.params);
+  res.sendFile(__dirname + '/assets/' + req.params['folder'] + '/' + req.params['keyword'] + '/'  + req.params['id']);
 });
 
 app.get('/runbot', function(req, res) {
